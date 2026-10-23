@@ -9,36 +9,17 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^(.*[^/])$ $1/ [L,R=301]
+    RewriteRule ^ %1 [L,R=301]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-
-
-<ifModule mod_expires.c>
-
- ExpiresActive On
- #кэшировать флэш и изображения на одну неделю
-
- ExpiresByType image/x-icon "access plus 7 days"
-  ExpiresByType image/webp "access plus 7 days"
- ExpiresByType image/jpeg "access plus 7 days"
- ExpiresByType image/png "access plus 7 days"
- ExpiresByType image/gif "access plus 7 days"
- ExpiresByType application/x-shockwave-flash "access plus 7 days"
- #кэшировать css, javascript и текстовые файлы на одну неделю
- ExpiresByType text/css "access plus 7 days"
- ExpiresByType text/javascript "access plus 7 days"
- ExpiresByType application/javascript "access plus 7 days"
- ExpiresByType application/x-javascript "access plus 7 days"
- #кэшировать html и htm файлы на один день
- ExpiresByType text/html "access plus 1 day"
- #кэшировать xml файлы на десять минут
- ExpiresByType application/xhtml+xml "access plus 10 minutes"
-</ifModule>	
 </IfModule>
