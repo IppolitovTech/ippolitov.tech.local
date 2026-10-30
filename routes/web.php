@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\GoogleSafeBrowsingController;
+use App\Http\Controllers\MainMenuController;
+use App\Http\Controllers\PagesDatasController;
+use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\MainMenuController::class, 'mainPage'])->name('home');
 
-Route::get('portfolio', 'MainMenuController@mainPage');
-Route::get('contacts', 'MainMenuController@mainPage');
-Route::get('/page/{id}', 'MainMenuController@onePage');
-Route::get('sitemap.xml', 'SitemapController@index');
+Route::get('portfolio', [MainMenuController::class, 'mainPage']);
+Route::get('contacts', [MainMenuController::class, 'mainPage']);
+Route::get('/page/{id}', [MainMenuController::class, 'onePage']);
+Route::get('sitemap.xml', [SitemapController::class, 'index']);
 
 // Google API
-Route::get('/admin/google/scan', 'GoogleSafeBrowsingController@scanIndex');
-Route::get('/admin/google/submit-for-indexing', 'GoogleSafeBrowsingController@submitIndex');
-Route::post('/admin/google/scan', 'GoogleSafeBrowsingController@scanLink')->name('scanGoogle');;
-Route::post('/admin/google/submit-for-indexing', 'GoogleSafeBrowsingController@submitForIndexing')->name('submitGoogle');
+Route::get('/admin/google/scan', [GoogleSafeBrowsingController::class, 'scanIndex']);
+Route::get('/admin/google/submit-for-indexing', [GoogleSafeBrowsingController::class, 'submitIndex']);
+Route::post('/admin/google/scan', [GoogleSafeBrowsingController::class, 'scanLink'])->name('scanGoogle');;
+Route::post('/admin/google/submit-for-indexing', [GoogleSafeBrowsingController::class, 'submitForIndexing'])->name('submitGoogle');
 // Google API
 
 Route::resource('admin/portfolio', PortfolioController::class);
