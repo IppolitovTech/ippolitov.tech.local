@@ -4,12 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @isset($title)
-    <meta name="description" content="{{$title}}">
-    <title>{{$title}}</title>
+    @isset($seo)
+    @include('partials.seo-meta')
+    @elseif(isset($title))
+    <title>{{ $title }}</title>
     @endisset
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,7 +18,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -95,36 +94,10 @@
             @yield('content')
         </main>
     </div>
+    {{-- After #app on purpose: broken HTML in page text can't swallow the Vue app --}}
+    @isset($seo)
+    @include('partials.seo-content')
+    @endisset
 </body>
 
 </html>
-@if(isset($currentLink))
-@if($currentLink=='page')
-<script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [{
-            "@type": "Article",
-            "isPartOf": {
-                "@id": "{{ url()->current() }}"
-            },
-            "author": {
-                "@type": "Person",
-                "name": "Konstantin",
-                "url": "{{ url()->current() }}"
-            },
-            "headline": "{{$pageData['pages']['current']['header']}} | konstantindev.com",
-            "datePublished": "{{$pageData['pages']['current']['created_at']}}",
-            "dateModified": "{{$pageData['pages']['current']['updated_at']}}",
-            "publisher": {
-                "@type": "Person",
-                "@id": "https://konstantindev.com/#person"
-            },
-            "inLanguage": "en-US",
-
-            "description": "{{strip_tags($pageData['pages']['current']['text'])}}"
-        }]
-    }
-</script>
-@endif
-@endif

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MainMenu;
 use App\Models\Portfolio;
 use App\Models\Page;
+use App\Services\Seo;
 use Illuminate\Support\Facades\Route;
 
 class MainMenuController extends Controller
@@ -53,7 +54,11 @@ class MainMenuController extends Controller
         $pageData = $this->getStaticPage();
         $pageData['pages']['current'] = $this->getOnePageData($id);
 
-        $data = array_merge($data, ['pageData' => $pageData]);
+        $data = array_merge($data, [
+            'pageData' => $pageData,
+            'title' => $pageData['pages']['current']['header'],
+        ]);
+        $data['seo'] = Seo::forPage('page', $data['title'], $pageData['pages']['current']);
 
         return view('pages/head')->with(array_merge($data, ['id' => $id]));
     }
@@ -61,10 +66,13 @@ class MainMenuController extends Controller
     public function mainPage()
     {
         $data = $this->getCommonData();
+        $pages = $data['pageData']['pages'];
+        $staticPages = ['/' => 'home', 'contacts' => 'contacts'];
+        $page = isset($staticPages[$data['currentLink']]) ? $pages[$staticPages[$data['currentLink']]] : null;
+        $data['seo'] = Seo::forPage($data['currentLink'], $data['title'], $page);
 
         return view('pages/head')->with($data);
     }
-
 
     public function getOnePageData($id)
     {

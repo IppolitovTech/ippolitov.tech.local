@@ -19,6 +19,7 @@ Route::get('portfolio', 'MainMenuController@mainPage');
 Route::get('contacts', 'MainMenuController@mainPage');
 Route::get('/page/{id}', 'MainMenuController@onePage');
 Route::get('sitemap.xml', 'SitemapController@index');
+Route::get('llms.txt', 'SitemapController@llms');
 
 // Google API
 Route::get('/admin/google/scan', 'GoogleSafeBrowsingController@scanIndex');

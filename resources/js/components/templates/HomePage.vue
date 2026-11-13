@@ -18,46 +18,6 @@
         </div>
       </div>
     </div>
-
-    <div class="col main-page-background text-center">
-      <div class="mt-4 main-page-background_text">My specializations:</div>
-      <div class="row col-12 footer_text_color mt-4">
-        <div class="col">
-          <img src="/img/icons/icon-vue.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">Vue.js</p>
-        </div>
-
-        <div class="col">
-          <img src="/img/icons/icon-php.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">PHP</p>
-        </div>
-
-        <div class="col">
-          <img src="/img/icons/icon-html.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">HTML</p>
-        </div>
-
-        <div class="col">
-          <img src="/img/icons/icon-css.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">CSS</p>
-        </div>
-
-        <div class="col">
-          <img src="/img/icons/icon-js.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">JS</p>
-        </div>
-
-        <div class="col">
-          <img src="/img/icons/icon-github.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">GitHub</p>
-        </div>
-
-        <div class="col">
-          <img src="/img/icons/icon-linux.webp" alt="" class="icon-link" />
-          <p class="text-xs mt-1">Linux and other OS</p>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 <script>
